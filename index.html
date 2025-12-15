@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord 違規字詞偵測機器人 - 隱私權政策</title>
+    
+    <!-- 載入 Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind CSS 配置：啟用 'class' 模式的深色主題 -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        // 確保黃色系在深色模式下有對比度
+                        'yellow-900': '#492a00',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- 載入自定義樣式 (styles.css 應被移除，因為所有樣式都在 HTML/Tailwind 中) -->
+    <!-- 根據指令，我將移除對 styles.css 的引用 -->
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 flex justify-center py-10 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-4xl w-full bg-white dark:bg-gray-800 shadow-xl rounded-xl p-8 sm:p-12 border border-gray-100 dark:border-gray-700">
+
+        <!-- 語言選擇區塊與深色模式切換按鈕 -->
+        <div class="mb-6 flex justify-end items-center text-sm text-gray-500 space-x-3">
+            
+            <!-- 深色模式切換按鈕 -->
+            <button id="theme-toggle" class="p-2 rounded-full transition-colors duration-200 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-600 dark:text-gray-300">
+                <!-- 月亮 SVG (預設為淺色模式時顯示，點擊切換為深色) -->
+                <svg id="moon-icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <!-- 太陽 SVG (預設為深色模式時顯示，點擊切換為淺色) -->
+                <svg id="sun-icon" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.354 5.354l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
+            
+            <div class="flex items-center">
+                <label for="language-select" class="mr-2 self-center text-gray-700 dark:text-gray-300" id="lang-label">語言選擇:</label>
+                <select id="language-select" class="border rounded-lg px-3 py-1 text-gray-700 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600">
+                    <option value="zh-tw" selected>中文(繁體)</option>
+                    <option value="en">English</option>
+                    <option value="ja">日本語</option>
+                </select>
+            </div>
+        </div>
+        <!-- 語言選擇區塊結束 -->
+
+        <header class="mb-8 border-b pb-4 dark:border-gray-700">
+            <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2" id="policy-title">Discord 違規字詞偵測機器人 - 隱私權政策</h1>
+            <p class="text-gray-500 dark:text-gray-400" id="policy-date">生效日期：2025 年 12 月 15 日</p>
+        </header>
+
+        <section class="policy-content text-gray-700 dark:text-gray-300" id="policy-content">
+            <!-- 內容會被 JavaScript 動態替換 -->
+        </section>
+
+    </div>
+
+    <!-- 1. 載入多語言內容數據 (content.js 必須先載入) -->
+    <script src="content.js"></script>
+
+    <script>
+        // -------------------------------------------------------------------
+        // 2. JavaScript 語言切換邏輯 & 深色模式邏輯
+        // -------------------------------------------------------------------
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 元素選擇 ---
+            const selectElement = document.getElementById('language-select');
+            const policyContentElement = document.getElementById('policy-content');
+            const policyTitleElement = document.getElementById('policy-title');
+            const policyDateElement = document.getElementById('policy-date');
+            const langLabelElement = document.getElementById('lang-label');
+            const themeToggle = document.getElementById('theme-toggle');
+            const htmlElement = document.documentElement;
+            const moonIcon = document.getElementById('moon-icon');
+            const sunIcon = document.getElementById('sun-icon');
+
+            // 確保 policyContent 變數存在
+            if (typeof policyContent === 'undefined') {
+                console.error('Error: policyContent is not defined. Make sure content.js is loaded correctly.');
+                return;
+            }
+
+            // --- 深色模式功能 ---
+
+            // 函數：更新主題圖標
+            const updateThemeIcon = (isDark) => {
+                if (isDark) {
+                    moonIcon.classList.add('hidden');
+                    sunIcon.classList.remove('hidden');
+                    // 確保按鈕有適當的樣式來突出顯示
+                    themeToggle.classList.add('bg-gray-700/50');
+                } else {
+                    moonIcon.classList.remove('hidden');
+                    sunIcon.classList.add('hidden');
+                    themeToggle.classList.remove('bg-gray-700/50');
+                }
+            };
+
+            // 函數：切換深色模式
+            const toggleDarkMode = () => {
+                if (htmlElement.classList.contains('dark')) {
+                    // 切換到淺色模式
+                    htmlElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                    updateThemeIcon(false);
+                } else {
+                    // 切換到深色模式
+                    htmlElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                    updateThemeIcon(true);
+                }
+            };
+
+            // 初始載入：根據 localStorage 或系統偏好設置主題
+            const initialTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            let isDark = false;
+            if (initialTheme === 'dark' || (!initialTheme && prefersDark)) {
+                htmlElement.classList.add('dark');
+                isDark = true;
+            } else if (initialTheme === 'light') {
+                htmlElement.classList.remove('dark');
+                isDark = false;
+            }
+            updateThemeIcon(isDark);
+            
+            // 深色模式按鈕事件監聽器
+            themeToggle.addEventListener('click', toggleDarkMode);
+
+
+            // --- 語言切換功能 ---
+
+            const updateLanguage = (langCode) => {
+                const content = policyContent[langCode];
+
+                if (content) {
+                    policyTitleElement.textContent = content.title;
+                    policyDateElement.textContent = content.date;
+                    langLabelElement.textContent = content.langLabel;
+                    policyContentElement.innerHTML = content.content;
+
+                    // 設置 HTML lang 屬性
+                    document.documentElement.lang = langCode;
+
+                    // 這裡可以處理其他 placeholder 的樣式清除，但我們保留紅色提醒
+                    const placeholderSpans = policyContentElement.querySelectorAll('.placeholder');
+                    placeholderSpans.forEach(span => {
+                        // Keep red reminder for zh-tw content to prompt user replacement
+                    });
+                }
+            };
+
+            // 處理選擇器變化
+            selectElement.addEventListener('change', (event) => {
+                updateLanguage(event.target.value);
+            });
+
+            // 初始載入時，根據選中的語言（預設為 zh-tw）載入內容
+            updateLanguage(selectElement.value);
+        });
+    </script>
+</body>
+</html>
