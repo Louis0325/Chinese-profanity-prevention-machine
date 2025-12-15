@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord 違規字詞偵測機器人 - 隱私權政策</title>
+    
+    <!-- 載入 Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind CSS 配置：啟用 'class' 模式的深色主題 -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        // 確保黃色系在深色模式下有對比度
+                        'yellow-900': '#492a00',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- 載入自定義樣式 (styles.css 應被移除，因為所有樣式都在 HTML/Tailwind 中) -->
+    <!-- 根據指令，我將移除對 styles.css 的引用 -->
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 flex justify-center py-10 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-4xl w-full bg-white dark:bg-gray-800 shadow-xl rounded-xl p-8 sm:p-12 border border-gray-100 dark:border-gray-700">
+
+        <!-- 語言選擇區塊與深色模式切換按鈕 -->
+        <div class="mb-6 flex justify-end items-center text-sm text-gray-500 space-x-3">
+            
+            <!-- 深色模式切換按鈕 -->
+            <button id="theme-toggle" class="p-2 rounded-full transition-colors duration-200 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-600 dark:text-gray-300">
+                <!-- 月亮 SVG (預設為淺色模式時顯示，點擊切換為深色) -->
+                <svg id="moon-icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <!-- 太陽 SVG (預設為深色模式時顯示，點擊切換為淺色) -->
+                <svg id="sun-icon" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.354 5.354l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
+            
+            <div class="flex items-center">
+                <label for="language-select" class="mr-2 self-center text-gray-700 dark:text-gray-300" id="lang-label">語言選擇:</label>
+                <select id="language-select" class="border rounded-lg px-3 py-1 text-gray-700 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600">
+                    <option value="zh-tw" selected>中文(繁體)</option>
+                    <option value="en">English</option>
+                    <option value="ja">日本語</option>
+                </select>
+            </div>
+        </div>
+        <!-- 語言選擇區塊結束 -->
+
+        <header class="mb-8 border-b pb-4 dark:border-gray-700">
+            <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2" id="policy-title">Discord 違規字詞偵測機器人 - 隱私權政策</h1>
+            <p class="text-gray-500 dark:text-gray-400" id="policy-date">生效日期：2025 年 12 月 15 日</p>
+        </header>
+
+        <section class="policy-content text-gray-700 dark:text-gray-300" id="policy-content">
+            <!-- 內容會被 JavaScript 動態替換 -->
+        </section>
+
+    </div>
+
+    <!-- 1. 載入多語言內容數據 (content.js 必須先載入) -->
+    <script src="content.js"></script>
+
+    <!-- 2. 載入主邏輯腳本 (語言切換、深色模式等) -->
+    <script src="main.js"></script>
+</body>
+</html>

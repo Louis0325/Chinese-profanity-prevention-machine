@@ -1,0 +1,18 @@
+/* 使用 Inter 字體作為主要字體 */
+:root {
+    font-family: 'Inter', sans-serif;
+}
+/* 標記需要使用者替換的佔位符 */
+.placeholder {
+    color: #dc2626; /* Red-600 */
+    font-weight: 700;
+}
+.policy-content p, .policy-content ul, .policy-content table {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+.policy-content h2 {
+    padding-top: 1rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 2px solid #e5e7eb;
+}
