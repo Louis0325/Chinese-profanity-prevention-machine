@@ -126,7 +126,7 @@ const createPolicyHTML = (t, cfg) => `
  */
 const translations = {
     'zh-tw': {
-        langLabel: "語言選擇:",
+        langLabel: "language:",
         title: "Discord 違規字詞偵測機器人 - 隱私權政策",
         date: "生效日期：2025 年 12 月 15 日",
         intro: {
@@ -295,4 +295,5 @@ const policyContent = Object.keys(translations).reduce((acc, lang) => {
         content: createPolicyHTML(t, config)
     };
     return acc;
+
 }, {});
